@@ -24,23 +24,22 @@ class LinkedList {
     }
 
 
-    insertAtEnd (data) {
-        let newNode = new Node(data); // create a new Node
-       if (!this.head) {  // if list is empty, make it the head
-        this.head = newNode;
-        this.length++
-        return;
-        
-       }
-
-       let temp = this.head;
-       while (temp.next !== null) { //Traverse to the last node
-        temp = temp.next;
-       }
-       temp.next = newNode; // Link last node to new node
-    this.length++ 
-    }
-
+        // Insert at the end
+        insertAtEnd(data) {
+            const newNode = new Node(data);
+            if (!this.head) {          // If list is empty, new node becomes head
+                this.head = newNode;
+            } else {
+                let current = this.head;
+                while (current.next) { // Traverse to the last node
+                    current = current.next;
+                }
+                current.next = newNode; // Attach new node at the end
+            }
+            this.length++;
+        }
+    
+    
 
     deleteFromBeginning() {
         if(!this.head) return; // if list is empty , do nothing
@@ -55,38 +54,26 @@ class LinkedList {
         if(!this.head.next) { // if there is only one node, remove it
 
             this.head = null;
-            return;
-
+        } else {
+            let current = this.head;
+            while (current.next.next) { // Traverse to second last node
+                current = current.next;
+            }
+            current.next = null;    // Remove last node
         }
-
-        let temp = this.head
-        while (temp.next.next !== null) { // Traverse to the second last node
-
-            temp = temp.next
-            
-        }
-
-        temp.next = null; //Remove the last node by setting next to null
         this.length--;
     }
 
-
-
-
+    // Print the linked list
     printList() {
-        let temp = this.head;
+        let current = this.head;
         let result = "";
-        while (temp !== null) { // Traverse the list
-            result += temp.data + " -> ";
-            temp = temp.next;
+        while (current) {
+            result += current.data + " -> ";
+            current = current.next;
         }
-        result += "null";
-
-        console.log(result);
+        console.log(result + "null"); // End of list
     }
-
-    
-
 }
 
     
@@ -98,11 +85,13 @@ list.insertAtBeginning(10)
 list.insertAtBeginning(20)
 list.insertAtEnd(30);
 list.printList()
+console.log("Length:", list.length); 
+
 list.deleteFromBeginning()
 list.printList()
+console.log("Length:", list.length); 
 list.deleteFromEnd()
-
 list.printList()
-
-
 console.log("Length : ",list.length)
+
+console.log(list)
