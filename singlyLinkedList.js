@@ -1,88 +1,90 @@
+// Node class represents each element in the linked list
 class Node {
-  constructor(data) {
-    this.data = data;
-    this.next = null;
-  }
+    constructor(data) {
+        this.data = data;    // Stores the actual value
+        this.next = null;    // Points to the next node, null by default
+    }
 }
 
+// LinkedList class manages the entire list structure
 class LinkedList {
-  constructor() {
-    this.head = null;
-  }
-
-  insertAtBeginning(data) {
-    let newNode = new Node(data);      // Step 1: Create new node
-    newNode.next = this.head;          // Step 2: Link to existing list
-
-    this.head = newNode; // Step 3: Update head
-  }
-
-
- insertAtEnd(data) {
-    let newNode = new Node(data);
-    if(!this.head){
-      this.head = newNode;
-      return;
+    constructor() {
+        this.head = null;    // Initialize empty list with head pointing to null
     }
-let current = this.head; // starts at the beginning
-while (current.next) { // traverses until we find the last node
-    current = current.next; // moves to next node in each iteration
-    
-}    
-current.next = newNode // links new node at the end
-} 
 
-deleteFromBeginning() {
-    if(!this.head) return;
-
-    this.head = this.head.next;
-
-}
-
-deleteFromEnd() {
-    if(!this.head) return; 
-// Check if head node has no next node (meaning this is the only node in list)
-
-    if(!this.head.next){
-        this.head = null;
-        return;
+    // Method to insert a new node at the start of the list
+    insertAtBeginning(data) {
+        let newNode = new Node(data);      // Create new node with given data
+        newNode.next = this.head;          // New node points to current head
+        this.head = newNode;               // Head now points to new node
     }
-    else {
+
+    // Method to insert a new node at the end of the list
+    insertAtEnd(data) {
+        let newNode = new Node(data);      // Create new node with given data
+
+        // If list is empty, make new node the head
+        if(!this.head){
+            this.head = newNode;
+            return;
+        }
+
+        let current = this.head;           // Start from first node
+        // Traverse until we reach the last node
+        while (current.next) {
+            current = current.next;
+        }    
+        current.next = newNode;            // Link new node at the end
+    }
+
+    // Method to delete the first node
+    deleteFromBeginning() {
+        if(!this.head) return;             // If list is empty, do nothing
+        this.head = this.head.next;        // Move head to second node
+    }
+
+    // Method to delete the last node
+    deleteFromEnd() {
+        if(!this.head) return;             // If list is empty, do nothing
+
+        // If only one node exists
+        if(!this.head.next){
+            this.head = null;              // Set head to null
+            return;
+        }
+        else {
+            let current = this.head;
+            // Traverse until second-to-last node
+            while(current.next.next){
+                current = current.next;
+            }
+            current.next = null;           // Remove reference to last node
+        }
+    }
+
+    // Method to display all elements in the list
+    display() {
         let current = this.head;
-        while(current.next.next){
+        let result = [];
+        
+        // Traverse and collect all values
+        while (current) {
+            result.push(current.data);
             current = current.next;
         }
-        current.next = null;
+        
+        // Print elements in a chain format
+        console.log("List elements:", result.join(" -> "));
     }
 }
 
-
-display() {
-    let current = this.head;
-    let result = [];
-    
-    while (current) {
-        result.push(current.data);
-        current = current.next;
-    }
-    
-    console.log("List elements:", result.join(" -> "));
-   
-
-}
-
-
-}
-
+// Test the implementation
 let list = new LinkedList();
 
-list.insertAtBeginning(10);
-list.insertAtBeginning(20);
-list.insertAtEnd(30);
-console.log(list);
-list.deleteFromBeginning();
-list.deleteFromEnd();
-
-
-
-list.display()
+list.insertAtBeginning(10);     // Add 10 at start
+list.insertAtBeginning(20);     // Add 20 at start
+list.insertAtEnd(30);           // Add 30 at end
+console.log(list);              // Display entire list
+list.deleteFromBeginning();     // Remove first element
+list.deleteFromEnd();           // Remove last element
+list.display();                 // Show final list
