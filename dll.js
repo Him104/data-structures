@@ -76,8 +76,6 @@ insertAtEnd(data){
             this.length--;
     }
 
-
-
     printList() {
         let current = this.head;
         let result = "";
