@@ -120,7 +120,7 @@ deletefromBeginning() {
 }
 
 const list = new doublycircularLinkedList()
-list.insertAtEnd(1);
+list.insertAtEnd(1);s
 list.insertAtEnd(2);
 list.insertAtEnd(3);
 list.insertAtBeginning(0)
